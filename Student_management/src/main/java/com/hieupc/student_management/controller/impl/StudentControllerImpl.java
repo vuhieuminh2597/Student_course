@@ -20,6 +20,10 @@ public class StudentControllerImpl implements StudentController {
         this.studentService = studentService;
     }
 
+    /**
+     * Phương thức trả ra Rest API chứa list students
+     * @return List students
+     */
     @GetMapping("")
     @Override
     public List<Student> findAllStudent() {

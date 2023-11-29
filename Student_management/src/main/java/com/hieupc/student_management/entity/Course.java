@@ -52,4 +52,12 @@ public class Course {
     public void setStudentList(List<Student> studentList) {
         this.studentList = studentList;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

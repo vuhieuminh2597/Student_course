@@ -66,6 +66,11 @@ public class CourseServiceImpl implements CourseService {
         return studentInCourse;
     }
 
+    public Course queryByNameCourse(String name) {
+        Course course = courseRepository.queryByName(name);
+        return course;
+    }
+
     private boolean checkIdCourse(Student student, Long id) {
         for (Course course :
                 student.getCourseList()) {
