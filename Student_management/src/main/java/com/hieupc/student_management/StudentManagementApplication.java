@@ -11,9 +11,6 @@ public class StudentManagementApplication {
 
     public static void main(String[] args) {
        ApplicationContext context = SpringApplication.run(StudentManagementApplication.class, args);
-        CourseServiceImpl s = context.getBean(CourseServiceImpl.class);
-        Course course = s.queryByNameCourse("C#");
-        System.out.println(course.toString());
     }
 
 }
