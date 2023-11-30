@@ -1,9 +1,14 @@
 package com.hieupc.student_management.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
-public interface BaseController<T, ID> {//T = Type,ID = number Object (Integer,Long,Double...)
-    ResponseEntity<T> get();
+import java.util.List;
+
+
+public interface BaseController<T, V, ID> {//T = Type,ID = number Object (Integer,Long,Double...)
+
+    List<V> getAll();
 
     ResponseEntity<T> getByIdController(ID id);
 

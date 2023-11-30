@@ -1,27 +1,20 @@
-package com.hieupc.student_management.entity;
+package com.hieupc.student_management.model;
 
-import com.fasterxml.jackson.annotation.*;
-import jakarta.persistence.*;
+import com.hieupc.student_management.entity.Student;
 
 import java.util.List;
+import java.util.Objects;
 
-@Entity
-@Table(name = "course")
-public class Course {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CourseDTO {
     private Integer id;
-
     private String name;
-
-    @ManyToMany(mappedBy = "courseList")
     private List<Student> studentList;
 
-    public Course() {
-
+    public CourseDTO() {
     }
 
-    public Course(String name) {
+    public CourseDTO(Integer id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -50,10 +43,24 @@ public class Course {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CourseDTO courseDTO = (CourseDTO) o;
+        return Objects.equals(id, courseDTO.id) && Objects.equals(name, courseDTO.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
     public String toString() {
-        return "Course{" +
+        return "CourseDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", studentList=" + studentList.toString() +
                 '}';
     }
 }

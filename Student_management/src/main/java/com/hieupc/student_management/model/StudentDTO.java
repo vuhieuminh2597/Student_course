@@ -1,51 +1,28 @@
-package com.hieupc.student_management.entity;
+package com.hieupc.student_management.model;
 
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
-@Entity
-@Table(name = "student")
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
+public class StudentDTO {
     private Integer id;
-    @Column(name = "student_name")
     private String name;
-    @Column(name = "student_birthDay")
     private String birthDay;
-    @Column(name = "student_email")
     private String email;
-    @Column(name = "student_address")
     private String address;
-    @Column(name = "student_phone")
     private String phoneNumber;
-    @Column(name = "status")
-    private boolean isDelete;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    @JsonIgnore
-    private List<Course> courseList;
+    private List<CourseDTO> courseDTOList;
 
-    public Student() {
+    public StudentDTO() {
     }
 
-    public Student(Integer id, String name, String birthDay, String email, String address, String phoneNumber
-            , List<Course> courseList) {
+    public StudentDTO(Integer id, String name, String birthDay, String email, String address, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.birthDay = birthDay;
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.courseList = courseList;
     }
 
     public Integer getId() {
@@ -96,32 +73,37 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isDelete() {
-        return isDelete;
+    public List<CourseDTO> getCourseDTOList() {
+        return courseDTOList;
     }
 
-    public void setDelete(boolean delete) {
-        isDelete = delete;
+    public void setCourseDTOList(List<CourseDTO> courseDTOList) {
+        this.courseDTOList = courseDTOList;
     }
 
-    public List<Course> getCourseList() {
-        return courseList;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentDTO that = (StudentDTO) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(birthDay, that.birthDay);
     }
 
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, birthDay);
     }
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "studentDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", birthDay='" + birthDay + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", isDelete=" + isDelete +
+                ", courseDTOList=" + courseDTOList.toString() +
                 '}';
     }
 }

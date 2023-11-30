@@ -2,9 +2,9 @@ package com.hieupc.student_management.controller.impl;
 
 import com.hieupc.student_management.controller.BaseController;
 import com.hieupc.student_management.entity.Student;
-import com.hieupc.student_management.service.StudentService;
+import com.hieupc.student_management.model.StudentDTO;
+import com.hieupc.student_management.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,42 +12,44 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/Student")
-public class StudentControllerImpl implements BaseController<Student, Integer> {
-    private StudentService studentService;
+public class StudentControllerImpl implements BaseController<StudentDTO, Student, Integer> {
+    private BaseService studentService;
 
     @Autowired
-    public StudentControllerImpl(StudentService studentService) {
+    public StudentControllerImpl(BaseService studentService) {
         this.studentService = studentService;
     }
 
-
+    @GetMapping
     @Override
-    public ResponseEntity<Student> get() {
-        return null;
+    public List<Student> getAll() {
+        return studentService.findAll();
     }
+
     @GetMapping("/{id}")
     @Override
-    public ResponseEntity<Student> getByIdController(@PathVariable("id") Integer id) {
+    public ResponseEntity<StudentDTO> getByIdController(@PathVariable("id") Integer id) {
         return ResponseEntity.of(studentService.findById(id));
     }
+    @GetMapping("/insert")
+    @Override
+    public ResponseEntity<StudentDTO> postController(@RequestBody StudentDTO newObject) {
+        return null;
+    }
+
 
     @Override
-    public ResponseEntity<Student> postController(@RequestBody Student newObject) {
+    public ResponseEntity<StudentDTO> putController(Integer integer) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Student> putController(Integer integer) {
+    public ResponseEntity<StudentDTO> pathController(Integer integer) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Student> pathController(Integer integer) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Student> deleteController(Integer integer) {
+    public ResponseEntity<StudentDTO> deleteController(Integer integer) {
         return null;
     }
 

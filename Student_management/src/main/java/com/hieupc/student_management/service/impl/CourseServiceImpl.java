@@ -2,12 +2,11 @@ package com.hieupc.student_management.service.impl;
 
 import com.hieupc.student_management.repository.CourseRepository;
 import com.hieupc.student_management.repository.StudentRepository;
-import com.hieupc.student_management.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl {
     private CourseRepository courseRepository;
     private StudentRepository studentRepository;
 
