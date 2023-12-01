@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-public interface BaseController<T, V, ID> {//T = Type,ID = number Object (Integer,Long,Double...)
+public interface BaseController<T, V, ID> {//T = Type,V = Value,ID = number Object (Integer,Long,Double...)
 
-    List<V> getAll();
+    ResponseEntity<List<T>> getAll();
 
     ResponseEntity<T> getByIdController(ID id);
 
-    ResponseEntity<T> postController(T newObject);
+    ResponseEntity<T> postController(V newObject);
 
     ResponseEntity<T> putController(ID id);
 
