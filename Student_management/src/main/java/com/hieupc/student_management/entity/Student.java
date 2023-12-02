@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table(name = "student")
@@ -39,7 +41,7 @@ public class Student {
 
     public Student(Integer id, String name, String birthDay, String email, String address, String phoneNumber
             , List<Course> courseList) {
-        this.id = id;
+        this.setId(id);
         this.name = name;
         this.birthDay = birthDay;
         this.email = email;
@@ -53,7 +55,11 @@ public class Student {
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        if (id != null){
+            this.id = id;
+        }else {
+            this.id = null;
+        }
     }
 
     public String getName() {
@@ -110,6 +116,19 @@ public class Student {
 
     public void setCourseList(List<Course> courseList) {
         this.courseList = courseList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(name, student.name) && Objects.equals(birthDay, student.birthDay) && Objects.equals(email, student.email) && Objects.equals(address, student.address) && Objects.equals(phoneNumber, student.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, birthDay, email, address, phoneNumber);
     }
 
     @Override

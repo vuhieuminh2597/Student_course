@@ -3,6 +3,7 @@ package com.hieupc.student_management.model;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class StudentDTO {
     private Integer id;
@@ -16,13 +17,33 @@ public class StudentDTO {
     public StudentDTO() {
     }
 
-    public StudentDTO(Integer id, String name, String birthDay, String email, String address, String phoneNumber) {
-        this.id = id;
+    public StudentDTO(String name, String birthDay, String email, String address, String phoneNumber) {
+        this.setId(null);
         this.name = name;
         this.birthDay = birthDay;
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
+    }
+
+    public StudentDTO(Integer id, String name, String birthDay, String email, String address, String phoneNumber) {
+        this.setId(id);
+        this.name = name;
+        this.birthDay = birthDay;
+        this.email = email;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public StudentDTO(Integer id, String name, String birthDay, String email, String address, String phoneNumber,
+                      List<CourseDTO> courseDTOList) {
+        this.setId(id);
+        this.name = name;
+        this.birthDay = birthDay;
+        this.email = email;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.courseDTOList = courseDTOList;
     }
 
     public Integer getId() {
@@ -81,29 +102,29 @@ public class StudentDTO {
         this.courseDTOList = courseDTOList;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StudentDTO that = (StudentDTO) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(birthDay, that.birthDay);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, birthDay);
-    }
+//    @Override
+//    public String toString() {
+//        return "studentDTO{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", birthDay='" + birthDay + '\'' +
+//                ", email='" + email + '\'' +
+//                ", address='" + address + '\'' +
+//                ", phoneNumber='" + phoneNumber + '\'' +
+//                ", courseDTOList=" + courseDTOList.toString() +
+//                '}';
+//    }
+
 
     @Override
     public String toString() {
-        return "studentDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+        return "StudentDTO{" +
+                "name='" + name + '\'' +
                 ", birthDay='" + birthDay + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", courseDTOList=" + courseDTOList.toString() +
                 '}';
     }
 }

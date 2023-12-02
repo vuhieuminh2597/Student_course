@@ -1,11 +1,14 @@
 package com.hieupc.student_management.Exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
+@ResponseStatus(HttpStatus.NOT_FOUND)//Lỗi liên quan đến dữ liệu không tồn tại
 public class ResourceNotFoundException extends RuntimeException {
+    private Logger logger = LoggerFactory.getLogger(ResourceNotFoundException.class);
     public ResourceNotFoundException(String message) {
-        super(message);
+        logger.warn(message);//Ghi log warning phía backend
     }
 }

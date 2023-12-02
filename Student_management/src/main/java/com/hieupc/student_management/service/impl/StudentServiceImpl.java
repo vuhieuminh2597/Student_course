@@ -34,4 +34,24 @@ public class StudentServiceImpl implements BaseService<StudentDTO, Student, Inte
                 new ResourceNotFoundException("Student was not found with given id: " + id));
         return studentMapper.mapToModelDTO(student1);
     }
+
+    @Override
+    public StudentDTO creatStudent(StudentDTO newStudent) {
+        Student studentMap = studentMapper.mapToEntity(newStudent);
+        Student student = studentRepository.save(studentMap);
+        return studentMapper.mapToModelDTO(student);
+    }
+
+    @Override
+    public StudentDTO updateStudent(Integer id, StudentDTO student) {
+        Student studentEntity = studentRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Student was not found with given id: " + id));
+        studentEntity.setName(student.getName());
+        studentEntity.setBirthDay(student.getBirthDay());
+        studentEntity.setEmail(student.getEmail());
+        studentEntity.setAddress(student.getAddress());
+        studentEntity.setPhoneNumber(student.getPhoneNumber());
+        Student studentSave = studentRepository.save(studentEntity);
+        return studentMapper.mapToModelDTO(studentSave);
+    }
 }

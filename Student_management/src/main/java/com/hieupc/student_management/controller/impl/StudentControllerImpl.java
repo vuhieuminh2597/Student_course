@@ -32,18 +32,21 @@ public class StudentControllerImpl implements BaseController<StudentDTO, Student
     @Override
     public ResponseEntity<StudentDTO> getByIdController(@PathVariable("id") Integer id) {
         StudentDTO studentDTO = (StudentDTO) studentService.findById(id);
-        return new  ResponseEntity<>(studentDTO,HttpStatus.OK);
+        return new ResponseEntity<>(studentDTO, HttpStatus.OK);
     }
+
     @PostMapping("/insert")
     @Override
-    public ResponseEntity<StudentDTO> postController(Student newObject) {
-        return null;
+    public ResponseEntity<StudentDTO> postController(@RequestBody StudentDTO newStudent) {
+        StudentDTO studentDTO = (StudentDTO) studentService.creatStudent(newStudent);
+        return new ResponseEntity<>(studentDTO, HttpStatus.CREATED);
     }
 
-
+    @PutMapping("/put/{id}")
     @Override
-    public ResponseEntity<StudentDTO> putController(Integer integer) {
-        return null;
+    public ResponseEntity<StudentDTO> putController(@PathVariable("id") Integer id, @RequestBody StudentDTO student) {
+        StudentDTO studentDTO = (StudentDTO) studentService.updateStudent(id, student);
+        return new ResponseEntity<>(studentDTO, HttpStatus.OK);
     }
 
     @Override

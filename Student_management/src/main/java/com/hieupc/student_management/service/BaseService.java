@@ -10,4 +10,8 @@ public interface BaseService<T,V,ID> {
 
     List<V> findAll();
     T findById(ID id);
+
+    T creatStudent(T newStudent);
+
+    T updateStudent(ID id, T student);
 }

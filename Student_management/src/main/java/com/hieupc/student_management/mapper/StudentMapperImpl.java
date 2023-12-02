@@ -21,7 +21,7 @@ public class StudentMapperImpl {
 
 
     public StudentDTO mapToModelDTO(Student object) {
-        return new StudentDTO(object.getId(), object.getName()
+        return new StudentDTO(object.getId(),object.getName()
                 , object.getBirthDay(), object.getEmail()
                 , object.getAddress(), object.getPhoneNumber());
     }

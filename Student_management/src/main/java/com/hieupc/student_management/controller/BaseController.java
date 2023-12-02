@@ -12,9 +12,9 @@ public interface BaseController<T, V, ID> {//T = Type,V = Value,ID = number Obje
 
     ResponseEntity<T> getByIdController(ID id);
 
-    ResponseEntity<T> postController(V newObject);
+    ResponseEntity<T> postController(T newObject);
 
-    ResponseEntity<T> putController(ID id);
+    ResponseEntity<T> putController(ID id,T update);
 
     ResponseEntity<T> pathController(ID id);
 

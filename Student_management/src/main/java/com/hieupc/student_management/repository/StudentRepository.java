@@ -16,4 +16,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     List<Student> findAllStudent();
     @Query("SELECT S FROM Student S WHERE  S.id = :id AND S.isDelete = FALSE ")
     Optional<Student> findById(@Param("id") Integer id);
+
+    @Query("SELECT S FROM Student S WHERE S.name = :name")
+    Optional<Student> findByName(@Param(("name")) String name);
 }
