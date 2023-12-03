@@ -1,12 +1,8 @@
 package com.hieupc.student_management.service;
 
-import com.hieupc.student_management.model.StudentDTO;
-import org.springframework.http.ResponseEntity;
-
 import java.util.List;
-import java.util.Optional;
 
-public interface BaseService<T,V,ID> {
+public interface StudentService<T,V,ID> {
 
     List<V> findAll();
     T findById(ID id);
@@ -14,4 +10,5 @@ public interface BaseService<T,V,ID> {
     T creatStudent(T newStudent);
 
     T updateStudent(ID id, T student);
+    boolean deleteById (ID id);
 }

@@ -1,74 +1,56 @@
 package com.hieupc.student_management.service.impl;
 
+import com.hieupc.student_management.Exception.ResourceNotFoundException;
+import com.hieupc.student_management.entity.Course;
+import com.hieupc.student_management.entity.Student;
+import com.hieupc.student_management.mapper.CourseMapper;
+import com.hieupc.student_management.model.CourseDTO;
 import com.hieupc.student_management.repository.CourseRepository;
-import com.hieupc.student_management.repository.StudentRepository;
+import com.hieupc.student_management.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class CourseServiceImpl {
+public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
-    private StudentRepository studentRepository;
+    private CourseMapper courseMapper;
+
 
     @Autowired
-    public CourseServiceImpl(CourseRepository courseRepository, StudentRepository studentRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository,CourseMapper courseMapper) {
         this.courseRepository = courseRepository;
-        this.studentRepository = studentRepository;
+        this.courseMapper = courseMapper;
     }
 
-//    @Override
-//    public List<Course> findAllCourse() {
-//        return courseRepository.findAll();
-//    }
-//
-//    @Override
-//    public Optional<CourseDTO> findByIdService(Long id) {
-//        Optional<Course> course = courseRepository.findById(id);
-//        if (course.isPresent()) {
-//            Optional<CourseDTO> courseDTO = Optional.of(new CourseDTO(
-//                    course.get().getId(),
-//                    course.get().getName(),
-//                    updateAllStudentInCourse(course)
-//            ));
-//            return courseDTO;
-//        }
-//        return null;
-//    }
-////
-//    @Override
-//    public List<StudentDTO> updateAllStudentInCourse(Optional<Course> course) {
-//        List<StudentDTO> studentInCourse = new ArrayList<>();
-//        List<Student> studentList = studentRepository.findAll();//lấy danh sách tất cả sinh viên
-//
-//        if (!studentList.isEmpty()) {//Nếu không rỗng
-//            for (Student student :
-//                    studentList) {//Travel qua danh sách các học sinh
-//
-//                if (!student.getCourseList().isEmpty()) {//nếu có tham gia lớp học nào đó
-//                    if (checkIdCourse(student, course.get().getId())) {//Check id khóa học mà học sinh tham gia
-//                        studentInCourse.add(new StudentDTO(student.getName(),
-//                                student.getBirthDay()
-//                                , student.getAddress()));//Add student transfer  qua StudentDTO
-//                    }
-//
-//                }
-//            }
-//        }
-//        return studentInCourse;
-//    }
-//
-//    public Course queryByNameCourse(String name) {
-//        Course course = courseRepository.queryByName(name);
-//        return course;
-//    }
-//
-//    private boolean checkIdCourse(Student student, Long id) {
-//        for (Course course :
-//                student.getCourseList()) {
-//            if (course.getId() == id) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    @Override
+    public List<Course> findAll() {
+        return courseRepository.findAllCourse();
+}
+
+    @Override
+    public CourseDTO findById(Integer id) {
+        Course course = courseRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Course was not found with given id: " + id));
+        return courseMapper.mapToCourseDTO(course);
+    }
+
+    @Override
+    public CourseDTO creatCourse(CourseDTO newCourse) {
+        Course courseMap = courseMapper.mapToCourseEntity(newCourse);
+        courseMap.setId(courseRepository.getLargestId() + 1);
+        Course courseSave = courseRepository.save(courseMap);
+        return courseMapper.mapToCourseDTO(courseSave);
+    }
+
+    @Override
+    public CourseDTO updateCourse(Integer integer, CourseDTO student) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteById(Integer integer) {
+        return false;
+    }
 }

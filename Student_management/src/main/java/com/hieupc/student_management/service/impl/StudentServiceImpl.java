@@ -2,10 +2,10 @@ package com.hieupc.student_management.service.impl;
 
 import com.hieupc.student_management.Exception.ResourceNotFoundException;
 import com.hieupc.student_management.entity.Student;
-import com.hieupc.student_management.mapper.StudentMapperImpl;
+import com.hieupc.student_management.mapper.StudentMapper;
 import com.hieupc.student_management.model.StudentDTO;
 import com.hieupc.student_management.repository.StudentRepository;
-import com.hieupc.student_management.service.BaseService;
+import com.hieupc.student_management.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentServiceImpl implements BaseService<StudentDTO, Student, Integer> {
+public class StudentServiceImpl implements StudentService<StudentDTO, Student, Integer> {
     private StudentRepository studentRepository;
-    private StudentMapperImpl studentMapper;
+    private StudentMapper studentMapper;
 
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository, StudentMapperImpl studentMapper) {
+    public StudentServiceImpl(StudentRepository studentRepository, StudentMapper studentMapper) {
         this.studentRepository = studentRepository;
         this.studentMapper = studentMapper;
     }
@@ -38,6 +38,7 @@ public class StudentServiceImpl implements BaseService<StudentDTO, Student, Inte
     @Override
     public StudentDTO creatStudent(StudentDTO newStudent) {
         Student studentMap = studentMapper.mapToEntity(newStudent);
+        studentMap.setId(studentRepository.getLargestId() + 1);
         Student student = studentRepository.save(studentMap);
         return studentMapper.mapToModelDTO(student);
     }
@@ -53,5 +54,15 @@ public class StudentServiceImpl implements BaseService<StudentDTO, Student, Inte
         studentEntity.setPhoneNumber(student.getPhoneNumber());
         Student studentSave = studentRepository.save(studentEntity);
         return studentMapper.mapToModelDTO(studentSave);
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        Optional<Student> student1 = studentRepository.findById(id);
+        if (student1.isPresent()) {
+            studentRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

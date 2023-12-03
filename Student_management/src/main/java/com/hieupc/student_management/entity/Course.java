@@ -10,8 +10,10 @@ import java.util.List;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "course_id")
     private Integer id;
 
+    @Column(name = "course_name")
     private String name;
 
     @ManyToMany(mappedBy = "courseList")
@@ -21,7 +23,9 @@ public class Course {
 
     }
 
-    public Course(String name) {
+
+    public Course(Integer id,String name) {
+        setId(id);
         this.name = name;
     }
 
@@ -30,7 +34,11 @@ public class Course {
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        if(id != null){
+            this.id = id;
+        }else {
+            this.id = null;
+        }
     }
 
     public String getName() {

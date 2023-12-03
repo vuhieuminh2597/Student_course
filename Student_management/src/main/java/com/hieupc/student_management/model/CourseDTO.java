@@ -18,6 +18,12 @@ public class CourseDTO {
         this.name = name;
     }
 
+    public CourseDTO(Integer id, String name, List<Student> studentList) {
+        this.id = id;
+        this.name = name;
+        this.studentList = studentList;
+    }
+
     public Integer getId() {
         return id;
     }
