@@ -66,7 +66,7 @@ public class StudentControllerImpl implements BaseController<StudentDTO, Student
         }
     }
 
-    @GetMapping("/register/student/{idStudent}/course/{idCourse}")
+    @PostMapping("/register/student/{idStudent}/course/{idCourse}")
     @Override
     public ResponseEntity<Course> registerCourse(@PathVariable("idStudent") Integer idStudent,
                                                  @PathVariable("idCourse") Integer idCourse) {

@@ -9,7 +9,7 @@ A BackEnd web using Spring boot,Jpa,PostgreSQL.
 | POST        | /api/v1/Student/insert                                         | Create an Student   |
 | DELETE      | /api/v1/Student/delete/{id}                                    | Delete Student      |
 | PUT         | /api/v1/Student/put/{id}                                       | Update Student      |
-| Register    | /api/v1/Student/register/student/{idStudent}/course/{idCourse} | Register course     |
+| POST        | /api/v1/Student/register/student/{idStudent}/course/{idCourse} | Register course     |
 
 
 ## Course
@@ -21,3 +21,6 @@ A BackEnd web using Spring boot,Jpa,PostgreSQL.
 | DELETE      | /api/v1/Course/delete/{id}                                     | Delete Course       |
 | PUT         | /api/v1/Course/put/{id}                                        | Update Course       |
 
+## Author 👤
+
+- GitHub: [@vuhieuminh2597](https://github.com/vuhieuminh2597)
