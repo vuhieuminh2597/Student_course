@@ -1,8 +1,7 @@
 package com.hieupc.student_management.service.impl;
 
-import com.hieupc.student_management.Exception.ResourceNotFoundException;
+import com.hieupc.student_management.exception.ResourceNotFoundException;
 import com.hieupc.student_management.entity.Course;
-import com.hieupc.student_management.entity.Student;
 import com.hieupc.student_management.mapper.CourseMapper;
 import com.hieupc.student_management.model.CourseDTO;
 import com.hieupc.student_management.repository.CourseRepository;

@@ -23,7 +23,6 @@ public class StudentControllerImpl implements BaseController<StudentDTO, Student
     public StudentControllerImpl(StudentService studentService) {
         this.studentService = studentService;
     }
-
     @GetMapping
     @Override
     public ResponseEntity<List<Student>> getAll() {

@@ -21,6 +21,9 @@ A BackEnd web using Spring boot,Jpa,PostgreSQL.
 | DELETE      | /api/v1/Course/delete/{id}                                     | Delete Course       |
 | PUT         | /api/v1/Course/put/{id}                                        | Update Course       |
 
+# Document Swagger 👤
+
+- Swagger:[Swagger library](http://localhost:8080/swagger-ui/index.html)
 ## Author 👤
 
 - GitHub: [@vuhieuminh2597](https://github.com/vuhieuminh2597)
