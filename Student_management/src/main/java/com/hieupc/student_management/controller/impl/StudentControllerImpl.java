@@ -1,6 +1,8 @@
 package com.hieupc.student_management.controller.impl;
 
 import com.hieupc.student_management.controller.BaseController;
+import com.hieupc.student_management.controller.RegisterCourseController;
+import com.hieupc.student_management.entity.Course;
 import com.hieupc.student_management.entity.Student;
 import com.hieupc.student_management.model.ReponseObject;
 import com.hieupc.student_management.model.StudentDTO;
@@ -14,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/Student")
-public class StudentControllerImpl implements BaseController<StudentDTO, Student, Integer> {
+public class StudentControllerImpl implements BaseController<StudentDTO, Student, Integer>, RegisterCourseController {
     private StudentService studentService;
 
     @Autowired
@@ -64,5 +66,11 @@ public class StudentControllerImpl implements BaseController<StudentDTO, Student
         }
     }
 
-
+    @GetMapping("/register/student/{idStudent}/course/{idCourse}")
+    @Override
+    public ResponseEntity<Course> registerCourse(@PathVariable("idStudent") Integer idStudent,
+                                                 @PathVariable("idCourse") Integer idCourse) {
+        Course course = studentService.register(idStudent, idCourse);
+        return new ResponseEntity<>(course, HttpStatus.OK);
+    }
 }

@@ -14,11 +14,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/Course")
-public class CourseController implements BaseController<CourseDTO, Course, Integer> {
+public class CourseControllerImpl implements BaseController<CourseDTO, Course, Integer> {
     private CourseService courseService;
 
     @Autowired
-    public CourseController(CourseService courseService) {
+    public CourseControllerImpl(CourseService courseService) {
         this.courseService = courseService;
     }
 
@@ -39,16 +39,27 @@ public class CourseController implements BaseController<CourseDTO, Course, Integ
     @Override
     public ResponseEntity<CourseDTO> postController(@RequestBody CourseDTO newObject) {
         CourseDTO courseDTO = courseService.creatCourse(newObject);
-        return new ResponseEntity<>(courseDTO,HttpStatus.CREATED);
+        return new ResponseEntity<>(courseDTO, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/put/{id}")
+    @Override
+    public ResponseEntity<CourseDTO> putController(@PathVariable("id") Integer id, @RequestBody CourseDTO update) {
+        CourseDTO courseDTO = courseService.updateCourse(id, update);
+        return new ResponseEntity<>(courseDTO, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<CourseDTO> putController(Integer id, CourseDTO update) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<ReponseObject> deleteController(Integer integer) {
-        return null;
+    public ResponseEntity<ReponseObject> deleteController(Integer id) {
+        boolean value = courseService.deleteById(id);
+        if (value) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ReponseObject("OK", "Delete course Successfully!")
+            );
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ReponseObject("Failed", "Course was not found with given id: " + id)
+            );
+        }
     }
 }

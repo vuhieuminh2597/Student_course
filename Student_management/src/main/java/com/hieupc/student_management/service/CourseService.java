@@ -12,6 +12,6 @@ public interface CourseService {
 
     CourseDTO creatCourse(CourseDTO newCourse);
 
-    CourseDTO updateCourse(Integer id, CourseDTO student);
+    CourseDTO updateCourse(Integer id, CourseDTO course);
     boolean deleteById (Integer id);
 }

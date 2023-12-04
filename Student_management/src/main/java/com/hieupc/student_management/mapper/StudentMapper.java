@@ -10,7 +10,7 @@ public class StudentMapper {
 
     public Student mapToEntity(StudentDTO object) {
         Student student = new Student();
-//        student.setId(object.getId());
+        student.setId(object.getId());
         student.setName(object.getName());
         student.setBirthDay(object.getBirthDay());
         student.setEmail(object.getEmail());

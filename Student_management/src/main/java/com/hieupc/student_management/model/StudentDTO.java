@@ -1,6 +1,8 @@
 package com.hieupc.student_management.model;
 
 
+import com.hieupc.student_management.entity.Course;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,7 +20,6 @@ public class StudentDTO {
     }
 
     public StudentDTO(String name, String birthDay, String email, String address, String phoneNumber) {
-        this.setId(null);
         this.name = name;
         this.birthDay = birthDay;
         this.email = email;
@@ -27,7 +28,7 @@ public class StudentDTO {
     }
 
     public StudentDTO(Integer id, String name, String birthDay, String email, String address, String phoneNumber) {
-        this.setId(id);
+        this.id = id;
         this.name = name;
         this.birthDay = birthDay;
         this.email = email;
@@ -37,7 +38,7 @@ public class StudentDTO {
 
     public StudentDTO(Integer id, String name, String birthDay, String email, String address, String phoneNumber,
                       List<CourseDTO> courseDTOList) {
-        this.setId(id);
+        this.id = id;
         this.name = name;
         this.birthDay = birthDay;
         this.email = email;
@@ -98,8 +99,8 @@ public class StudentDTO {
         return courseDTOList;
     }
 
-    public void setCourseDTOList(List<CourseDTO> courseDTOList) {
-        this.courseDTOList = courseDTOList;
+    public void setCourseDTOList(CourseDTO course) {
+        this.courseDTOList.add(course);
     }
 
 

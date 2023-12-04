@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -39,18 +40,27 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDTO creatCourse(CourseDTO newCourse) {
         Course courseMap = courseMapper.mapToCourseEntity(newCourse);
-        courseMap.setId(courseRepository.getLargestId() + 1);
         Course courseSave = courseRepository.save(courseMap);
         return courseMapper.mapToCourseDTO(courseSave);
     }
 
     @Override
-    public CourseDTO updateCourse(Integer integer, CourseDTO student) {
-        return null;
+    public CourseDTO updateCourse(Integer id ,CourseDTO course) {
+        Course courseEntity = courseRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Student was not found with given id: " + id));
+        courseEntity.setName(course.getName());
+        Course courseSave = courseRepository.save(courseEntity);
+        return courseMapper.mapToCourseDTO(courseSave);
     }
 
     @Override
-    public boolean deleteById(Integer integer) {
-        return false;
+    public boolean deleteById(Integer id) {
+        Optional<Course> course = courseRepository.findById(id);
+        if(course.isPresent()){
+            courseRepository.deleteById(id);
+            return true;
+        }else {
+            return false;
+        }
     }
 }

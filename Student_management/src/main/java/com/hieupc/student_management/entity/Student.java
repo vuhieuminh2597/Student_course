@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Entity
 @Table(name = "student")
@@ -34,13 +35,13 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     @JsonIgnore
-    private List<Course> courseList;
+    private Set<Course> courseList;
 
     public Student() {
     }
 
     public Student(Integer id, String name, String birthDay, String email, String address, String phoneNumber
-            , List<Course> courseList) {
+            , Set<Course> courseList) {
         this.setId(id);
         this.name = name;
         this.birthDay = birthDay;
@@ -110,12 +111,15 @@ public class Student {
         isDelete = delete;
     }
 
-    public List<Course> getCourseList() {
+    public Set<Course> getCourseList() {
         return courseList;
     }
 
-    public void setCourseList(List<Course> courseList) {
+    public void setCourseList(Set<Course> courseList) {
         this.courseList = courseList;
+    }
+    public void setCourseList(Course course){
+        this.courseList.add(course);
     }
 
     @Override
@@ -123,12 +127,12 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return Objects.equals(name, student.name) && Objects.equals(birthDay, student.birthDay) && Objects.equals(email, student.email) && Objects.equals(address, student.address) && Objects.equals(phoneNumber, student.phoneNumber);
+        return Objects.equals(id, student.id) && Objects.equals(name, student.name) && Objects.equals(birthDay, student.birthDay) && Objects.equals(email, student.email) && Objects.equals(address, student.address) && Objects.equals(phoneNumber, student.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, birthDay, email, address, phoneNumber);
+        return Objects.hash(id, name, birthDay, email, address, phoneNumber);
     }
 
     @Override

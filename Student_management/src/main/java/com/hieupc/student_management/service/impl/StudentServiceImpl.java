@@ -1,9 +1,13 @@
 package com.hieupc.student_management.service.impl;
 
 import com.hieupc.student_management.Exception.ResourceNotFoundException;
+import com.hieupc.student_management.entity.Course;
 import com.hieupc.student_management.entity.Student;
+import com.hieupc.student_management.mapper.CourseMapper;
 import com.hieupc.student_management.mapper.StudentMapper;
+import com.hieupc.student_management.model.CourseDTO;
 import com.hieupc.student_management.model.StudentDTO;
+import com.hieupc.student_management.repository.CourseRepository;
 import com.hieupc.student_management.repository.StudentRepository;
 import com.hieupc.student_management.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +19,17 @@ import java.util.Optional;
 @Service
 public class StudentServiceImpl implements StudentService<StudentDTO, Student, Integer> {
     private StudentRepository studentRepository;
+    private CourseRepository courseRepository;
     private StudentMapper studentMapper;
+    private CourseMapper courseMapper;
 
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository, StudentMapper studentMapper) {
+    public StudentServiceImpl(StudentRepository studentRepository, StudentMapper studentMapper,
+                              CourseRepository courseRepository, CourseMapper courseMapper) {
         this.studentRepository = studentRepository;
         this.studentMapper = studentMapper;
+        this.courseRepository = courseRepository;
+        this.courseMapper = courseMapper;
     }
 
     @Override
@@ -64,5 +73,19 @@ public class StudentServiceImpl implements StudentService<StudentDTO, Student, I
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Course register(Integer idStudent, Integer idCourse) {
+        Student studentEntity = studentRepository.findById(idStudent).orElseThrow(() ->
+                new ResourceNotFoundException("Student was not found with given id: " + idStudent));
+
+        Course courseEntity = courseRepository.findById(idCourse).orElseThrow(() ->
+                new ResourceNotFoundException("Course was not found with given id: " + idCourse));
+        studentEntity.setCourseList(courseEntity);
+        courseEntity.setStudentList(studentEntity);
+        studentRepository.save(studentEntity);
+        Course courseSave = courseRepository.save(courseEntity);
+        return courseSave;
     }
 }
