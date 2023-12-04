@@ -18,4 +18,6 @@ public interface BaseController<T, V, ID> {//T = Type,V = Value,ID = number Obje
     ResponseEntity<T> putController(ID id, T update);
 
     ResponseEntity<ReponseObject> deleteController(ID id);
+
+    ResponseEntity<T> patchController (ID id,T newObject);
 }

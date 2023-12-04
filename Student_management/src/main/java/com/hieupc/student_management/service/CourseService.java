@@ -5,13 +5,15 @@ import com.hieupc.student_management.model.CourseDTO;
 
 import java.util.List;
 
-public interface CourseService {
+public interface CourseService<T,V,ID> {
 
-    List<Course> findAll();
-    CourseDTO findById(Integer id);
+    List<V> findAll();
+    T findById(ID id);
 
-    CourseDTO creatCourse(CourseDTO newCourse);
+    T creatCourse(T newCourse);
 
-    CourseDTO updateCourse(Integer id, CourseDTO course);
+    T updateCourse(ID id, T course);
     boolean deleteById (Integer id);
+
+    T patchCourse (ID id ,T course);
 }

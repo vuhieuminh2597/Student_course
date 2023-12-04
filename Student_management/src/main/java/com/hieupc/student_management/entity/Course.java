@@ -23,7 +23,6 @@ public class Course {
 
     }
 
-
     public Course(Integer id, String name) {
         setId(id);
         this.name = name;

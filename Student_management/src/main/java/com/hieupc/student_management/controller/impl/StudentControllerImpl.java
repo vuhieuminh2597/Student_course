@@ -7,6 +7,7 @@ import com.hieupc.student_management.entity.Student;
 import com.hieupc.student_management.model.ReponseObject;
 import com.hieupc.student_management.model.StudentDTO;
 import com.hieupc.student_management.service.StudentService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,11 +66,17 @@ public class StudentControllerImpl implements BaseController<StudentDTO, Student
         }
     }
 
+
     @PostMapping("/register/student/{idStudent}/course/{idCourse}")
     @Override
     public ResponseEntity<Course> registerCourse(@PathVariable("idStudent") Integer idStudent,
                                                  @PathVariable("idCourse") Integer idCourse) {
         Course course = studentService.register(idStudent, idCourse);
         return new ResponseEntity<>(course, HttpStatus.OK);
+    }
+    @PatchMapping("/path/{id}")
+    public ResponseEntity<StudentDTO> patchController (@PathVariable("id")Integer id,@RequestBody StudentDTO studentDTO){
+        StudentDTO studentPath = (StudentDTO) studentService.patchStudent(id,studentDTO);
+        return new ResponseEntity<>(studentPath,HttpStatus.OK);
     }
 }

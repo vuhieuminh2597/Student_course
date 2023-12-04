@@ -31,26 +31,27 @@ public class CourseControllerImpl implements BaseController<CourseDTO, Course, I
     @GetMapping("/{id}")
     @Override
     public ResponseEntity<CourseDTO> getByIdController(@PathVariable("id") Integer id) {
-        CourseDTO courseDTO = courseService.findById(id);
+        CourseDTO courseDTO = (CourseDTO) courseService.findById(id);
         return new ResponseEntity<>(courseDTO, HttpStatus.OK);
     }
 
     @PostMapping("/insert")
     @Override
     public ResponseEntity<CourseDTO> postController(@RequestBody CourseDTO newObject) {
-        CourseDTO courseDTO = courseService.creatCourse(newObject);
+        CourseDTO courseDTO = (CourseDTO) courseService.creatCourse(newObject);
         return new ResponseEntity<>(courseDTO, HttpStatus.CREATED);
     }
 
     @PutMapping("/put/{id}")
     @Override
     public ResponseEntity<CourseDTO> putController(@PathVariable("id") Integer id, @RequestBody CourseDTO update) {
-        CourseDTO courseDTO = courseService.updateCourse(id, update);
+        CourseDTO courseDTO = (CourseDTO) courseService.updateCourse(id, update);
         return new ResponseEntity<>(courseDTO, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{id}")
     @Override
-    public ResponseEntity<ReponseObject> deleteController(Integer id) {
+    public ResponseEntity<ReponseObject> deleteController(@PathVariable("id") Integer id) {
         boolean value = courseService.deleteById(id);
         if (value) {
             return ResponseEntity.status(HttpStatus.OK).body(
@@ -61,5 +62,12 @@ public class CourseControllerImpl implements BaseController<CourseDTO, Course, I
                     new ReponseObject("Failed", "Course was not found with given id: " + id)
             );
         }
+    }
+
+    @PatchMapping("/patch/{id}")
+    @Override
+    public ResponseEntity<CourseDTO> patchController(@PathVariable("id") Integer id,@RequestBody CourseDTO newObject) {
+        CourseDTO courseDTO = (CourseDTO) courseService.patchCourse(id,newObject);
+        return new ResponseEntity<>(courseDTO,HttpStatus.OK);
     }
 }

@@ -15,4 +15,6 @@ public interface StudentService<T,V,ID> {
     T updateStudent(ID id, T student);
     boolean deleteById (ID id);
     Course register(ID idStudent, ID idCourse);
+
+    T patchStudent(ID id, T studentDTO);
 }

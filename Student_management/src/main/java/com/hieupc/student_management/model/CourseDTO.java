@@ -67,7 +67,6 @@ public class CourseDTO {
         return "CourseDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", studentList=" + studentList.toString() +
                 '}';
     }
 }

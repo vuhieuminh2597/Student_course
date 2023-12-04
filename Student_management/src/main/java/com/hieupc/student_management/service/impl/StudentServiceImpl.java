@@ -68,6 +68,7 @@ public class StudentServiceImpl implements StudentService<StudentDTO, Student, I
     public boolean deleteById(Integer id) {
         Optional<Student> student1 = studentRepository.findById(id);
         if (student1.isPresent()) {
+            student1.get().getCourseList().clear();
             studentRepository.deleteById(id);
             return true;
         }
@@ -86,5 +87,33 @@ public class StudentServiceImpl implements StudentService<StudentDTO, Student, I
         studentRepository.save(studentEntity);
         Course courseSave = courseRepository.save(courseEntity);
         return courseSave;
+    }
+
+    @Override
+    public StudentDTO patchStudent(Integer id, StudentDTO studentDTO) {
+        Student studentEntity = studentRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Student was not found with given id: " + id));
+        Student studentSave = studentRepository.save(updateStudentByPatch(studentEntity,studentDTO));
+        return studentMapper.mapToModelDTO(studentSave);
+    }
+
+    public Student updateStudentByPatch(Student student, StudentDTO studentDTO) {
+        Student studentSave = student;
+        if (studentDTO.getName() != null) {
+            studentSave.setName(studentDTO.getName());
+        }
+        if (studentDTO.getAddress() != null) {
+            studentSave.setAddress(studentDTO.getAddress());
+        }
+        if (studentDTO.getBirthDay() != null) {
+            studentSave.setBirthDay(studentDTO.getBirthDay());
+        }
+        if (studentDTO.getEmail() != null) {
+            studentSave.setEmail(studentDTO.getEmail());
+        }
+        if (studentDTO.getPhoneNumber() != null) {
+            studentSave.setPhoneNumber(studentDTO.getPhoneNumber());
+        }
+        return studentSave;
     }
 }

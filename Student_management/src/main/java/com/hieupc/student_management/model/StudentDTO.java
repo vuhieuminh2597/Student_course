@@ -4,8 +4,7 @@ package com.hieupc.student_management.model;
 import com.hieupc.student_management.entity.Course;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.Set;
 
 public class StudentDTO {
     private Integer id;
@@ -14,7 +13,7 @@ public class StudentDTO {
     private String email;
     private String address;
     private String phoneNumber;
-    private List<CourseDTO> courseDTOList;
+//    private Set<Course> courseDTOList;
 
     public StudentDTO() {
     }
@@ -36,16 +35,6 @@ public class StudentDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public StudentDTO(Integer id, String name, String birthDay, String email, String address, String phoneNumber,
-                      List<CourseDTO> courseDTOList) {
-        this.id = id;
-        this.name = name;
-        this.birthDay = birthDay;
-        this.email = email;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.courseDTOList = courseDTOList;
-    }
 
     public Integer getId() {
         return id;
@@ -95,16 +84,7 @@ public class StudentDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<CourseDTO> getCourseDTOList() {
-        return courseDTOList;
-    }
-
-    public void setCourseDTOList(CourseDTO course) {
-        this.courseDTOList.add(course);
-    }
-
-
-//    @Override
+    //    @Override
 //    public String toString() {
 //        return "studentDTO{" +
 //                "id=" + id +

@@ -25,4 +25,5 @@ public class StudentMapper {
                 , object.getBirthDay(), object.getEmail()
                 , object.getAddress(), object.getPhoneNumber());
     }
+
 }
