@@ -7,7 +7,6 @@ import com.hieupc.student_management.entity.Student;
 import com.hieupc.student_management.model.ReponseObject;
 import com.hieupc.student_management.model.StudentDTO;
 import com.hieupc.student_management.service.StudentService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")//Spring security
 @RequestMapping(path = "/api/v1/Student")
 public class StudentControllerImpl implements BaseController<StudentDTO, Student, Integer>, RegisterCourseController {
     private StudentService studentService;

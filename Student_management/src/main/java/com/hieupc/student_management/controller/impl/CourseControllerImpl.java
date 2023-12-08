@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")//Spring security
 @RequestMapping(path = "api/v1/Course")
 public class CourseControllerImpl implements BaseController<CourseDTO, Course, Integer> {
     private CourseService courseService;
